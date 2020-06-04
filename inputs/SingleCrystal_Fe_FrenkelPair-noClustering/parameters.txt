@@ -1,0 +1,109 @@
+!***************************************************************************************************
+!This is the first version of the overall parameters file that will be used for MISA-SCD.
+!It also contains filenames of various other input files used in this code.
+!***************************************************************************************************
+
+defectFile              !Location of the defect attributes file
+'../../inputs/Fe_Defects_FP_noClustering.txt'
+
+meshFile                !Location of the mesh file
+'../../meshes/Mesh_SingleCrystal.txt'
+
+irradiationType         !('Cascade': neutron irradiation, 'FrenkelPair': electron irradiation, 'None': no irradiation)
+FrenkelPair
+
+implantScheme           !('MonteCarlo' for MC implantation)
+MonteCarlo
+
+cascadeFile             !Location of the cascade file
+'../../inputs/Fe_Cascades_20KeV.txt'
+
+implantType             !('uniform' or 'nonUniform') Implant defects uniformly or separately at each material point
+uniform
+
+grainBoundaries	        !('yes' or 'no') Toggle whether or not we are going to include the effect of grain boundaries (Removing defects that travel too far)
+no
+
+pointDefect             !('yes' or 'no') Toggle whether or not point defects are allowed to move only
+no
+
+!***************************************************************************************************
+!Simulation Parameters
+!
+!The order of these parameters can be adjusted but each parameter must come directly after the tag
+!for it. For example, the temperature must come directly after 'temperature'
+!***************************************************************************************************
+start			        !begin parameters
+
+temperature		        !Temperature, in K
+293d0
+
+soluteConcentration     !Initial content of Cu in iron
+0d0
+
+dpaRate			        !NOTE: if the implant profile is non-uniform, this should be the AVERAGE DPA rate.
+1.0d0
+
+totalDPA
+1.0d-3			        !total DPA in simulation 1
+
+firr                    !firr = Vconcent / initialCeqv. Radiation enhanced factor
+1.0d0
+
+lattice                 !lattice constant (nm)  atomVolume = lattice^3/2
+0.2867d0
+
+burgers                 !dislocation loop burgers vector (nm)
+0.287d0
+
+reactionRadius          !<Material parameter used for reaction distances (impacts reaction rates) (nm)
+0.5065d0
+
+grainSize               !Mean free path for interstitial clusters to travel before removal (nm)
+33d3
+
+dislocDensity           !dislocation density (nm^-2)
+1d-5
+
+impurityDensity         !carbon impurity concentration (atomic fraction)
+30d-6			        
+
+cascadeVolume           !volume of cascade (nm^3) - used for cascade-defect interactions
+1000d0			        
+
+max3D                   !maximum size for SIA defect to diffuse in 3D
+4
+
+numGrains               !Number of grains inside polycrystal (default 1)
+1
+
+numSims                 !number of times to repeat simulation
+1				        
+
+end				        !Tag for the end of the parameters file
+
+!***************************************************************************************************
+!Output parameters
+!***************************************************************************************************
+OutputStart
+
+totdatToggle    !‘yes’ or ‘no’: toggles output of totdat.txt file
+no              !If you want to output totdat.txt file, stadatToggle should be set 'no'
+
+stadatToggle    !'yes' or 'no', used to toggle whether we output the stadat.out data file
+yes
+
+minSolute       !Only n>minSolute (V)_nS_0 clusters are used for calculating the average cluster radius and number density
+10
+
+minVoid         !Only n>minVoid nV_0_0 clusters are used for calculating the average cluster radius and number density
+10
+
+minLoop         !Only n>minLoop 0_0_nI clusters are used for calculating the average cluster radius and number density
+10
+
+minVS           !Only (n+m)>minSV nV_mS_0 clusters are used for calculating the average cluster radius and number density
+10
+
+OutputEnd       !Tag for the end of the Output parameters file
+
